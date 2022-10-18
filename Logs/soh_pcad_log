@@ -1,0 +1,2 @@
+mta       7816  7803 18 10:48 ?        00:00:22 /data/mta4/Script/Python3.8/envs/ska3-shiny/bin/python /data/mta4/Script/SOH/copy_data_from_occ.py pcad
+mta       7816  7803 31 10:48 ?        00:00:56 /data/mta4/Script/Python3.8/envs/ska3-shiny/bin/python /data/mta4/Script/SOH/copy_data_from_occ.py pcad

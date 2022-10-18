@@ -1,0 +1,27 @@
+
+
+
+sed -i "s/data\/mta\/Script/data\/mta4\/Script/g" *.py *.c
+
+sed -i "s/SOH/SOH_new/g " *.py *.c *.sh house_keeping/dir_list
+sed -i "s/CSH/CSH_new/g " *.py *.c *.sh house_keeping/dir_list
+
+sed -i "s/SOH_new/SOH/g " *.py *.c *.sh house_keeping/dir_list
+sed -i "s/CSH_new/CSH/g " *.py *.c *.sh house_keeping/dir_list
+
+soh_all_daemonize
+
+soh_snap_daemonize
+soh_main_daemonize
+
+soh_ccdm_daemonize
+soh_eps_daemonize
+soh_load_daemonize
+soh_mech_daemonize
+soh_pcad_daemonize
+soh_prop_daemonize
+soh_sc_config_daemonize
+soh_smode_daemonize
+soh_thermal_daemonize
+
+

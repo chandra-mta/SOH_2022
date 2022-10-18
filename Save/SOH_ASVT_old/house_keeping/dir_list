@@ -1,0 +1,3 @@
+'/data/mta/Script/SOH_ASVT/'                     :bin_dir
+'/data/mta/Script/SOH_ASVT/house_keeping/'       :house_keeping
+'/data/mta4/www/CSH_ASVT/'                       :html_dir

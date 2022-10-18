@@ -1,0 +1,135 @@
+
+#############################################################################
+copy msididx.json and blob data from occ side to sot side ---- ASVT version
+#############################################################################
+
+Scripts:
+========
+copy_data_from_occ.py 
+---------------------
+update blob.json (containing the current data values for all msids)
+
+input:   msid data using maude tools
+        <house_keeping>/msid_id_list  
+        <house_keeping>/msid_list
+                ---- all msids in the list must be extractable with maude. check them with the
+                     supplemental scripts to make sure that they are ok
+
+        run checker: <house_keeping>/running
+                ---- while running a long blob.json extraction, this will be set to "1" so that
+                     following run of the script won't run while the process is running. 
+
+output:         <outdir>/blob.json
+
+copy_data_from_occ_part.py
+--------------------------
+similar to copy_data_from_occ.py, but provide a json file for a given group
+input:  group name such as main or snap
+
+run_main.py     #--- not used
+-----------
+run copy_data_from_occ_part.py for main group (front page of soh.html)
+
+run_snap.py     #--- not used
+-----------
+run copy_data_from_occ_part.py for snap group (snap shopt page: soh_snap.html)
+
+update_msididx_data.py  
+----------------------
+update msididx.blog (contatining name, limits, description etc)
+
+input:  https://occweb.cfa.harvard.edu/occweb/web/fot_web/software/sandbox/SOT_area/msididx.json
+
+output: <outdir>/msididx.json   --- contains msid description, limits and expected values
+
+------ this is not running in this version. the output msididx.json is symbolic link to that
+       of CSH page.
+
+
+
+Supplemental Script:
+====================
+check_msid_exist_list.py    ---  print out msids in the list which cannot be extracted with maude
+
+check_msid_exist.py         ---  a given msid, it will tell whether it can be extracted with maude
+
+
+Data:
+=====
+blob.json:
+example: {"msid":"AOPCADMD","index":"2416","time":"2018131120936.285","value":"NPNT","f": "1"}
+        msid    --- msid of this data
+        index   --- index of this msid corresponding to that of msididx.json
+        time    --- time: 2018:131:12:09:36.285
+        value   --- current value
+        f       --- this is a dummy input for this app
+
+    blob.json is constructed locally by copy_data_from_occ.py using madue function
+
+msididx.json:
+example: ,{"name": "AOPCADMD", "idx": 2416, "description": "PCAD MOD E", "sc": ["STBY","NPNT","NMAN","NSUN","PWRF","RMAN","NULL"]}
+        name    --- msid
+        idx     --- index of this msid
+        description --- description of this msid
+        sc          --- possible values
+        limit/switch/set  --- if switch value takes a cartain value, set is used for expected value. 
+        "lim": [{"switch":{"AOPCADMD":"NMAN"},
+                  "set":{"wl":-0.03490658,"cl":-0.026179935,"ch":0.026179935,"wh":0.03490658}},
+                {"switch":{"AOPCADMD":"NPNT"},"
+                 "set":{"wl":-0.0000977384,"cl":-0.0000488692,"ch":0.0000488692,"wh":0.0000977384}},
+                    ...
+                where wl --- lower warning
+                      cl --- lower caution
+                      ch --- upper caution
+                      wh --- upper warning
+
+    msididx.json is directly copied from:
+
+    https://occweb.cfa.harvard.edu/occweb/web/fot_web/software/sandbox/SOT_area/msididx.json
+
+    this may change in future.
+
+
+Direcotry:
+==========
+bin_dir:        /data/mta/Script/SOH_ASVT/
+house_keeping:  /data/mta/Script/SOH_ASVT/house_keeping/
+outdir:         /data/mta4/www/CSH_ASVT/
+
+Web Address:
+============
+/data/mta4/www/CSH_ASVT
+
+https://cxc.cfa.harvard.edu/mta/CSH_ASVT/soh.html
+https://cxc.cfa.harvard.edu/mta/CSH_ASVT/soh_snap.html
+
+Environment Settings
+====================
+/proj/sot/ska/bin/python
+
+if the person running the script changes, check the function: get_u_p() in copy_data_from_occ.py
+
+
+cron job
+========
+han-v as mta:
+
+* * * * *  cd /data/mta/Script/SOH_ASVT/; /data/mta/Script/SOH_ASVT/copy_data_from_occ_part.py snap > /data/mta/Script/SOH_ASVT/Logs/log_snap.cron 2>&1
+
+
+***************
+Notes on htmls 
+***************
+<outdir> contains the html files, json data, and backbone.js related scripts.
+
+js/lib          --- contains library of backbone.js related javascripts files
+
+js/models       --- contains models to be used
+                    mid.js      --- msid model
+                    blob.js     --- blob model
+                    msidinfo.js --- msididx mode
+
+js/view         --- contains view (html page construction related) javascript
+                    msidview.js --- this craete view of msid. it can contain some computation related to the msid.
+js/collection   --- collections of javascripts
+

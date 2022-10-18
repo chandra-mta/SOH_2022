@@ -1,0 +1,72 @@
+
+
+Some comments on the layout of the snapshot page:
+https://cxc.cfa.harvard.edu/mta/CSH/soh_snap.html
+
+overall excellent.
+
+please remove all the EPhin references (this is the entire 4th line from the bottom)
+
+remove PMTANKP
+
+please check find ACA Object and ACA ImFunc associated msids
+This may take some finess to make work. 
+
+I think you are also missing the Batt state of charge 
+
+let me know when you thing you have all the MSIDs captured on the page (except for the stuff at the very bottom and the very top) 
+
+
+
+
+
+EOCHRGB1    0.25    1.1     0.2     1.2     573227507.0 #BATT 1 SOC RANGE (INTEGER 0 TO 10000 = 0 TO 100 )      2016_03_
+EOCHRGB2    0.25    1.1     0.2     1.2     573227507.0 #BATT 2 SOC RANGE (INTEGER 0 TO 10000 = 0 TO 100 )      2016_03_
+EOCHRGB3    0.25    1.1     0.2     1.2     573227507.0 #BATT 3 SOC RANGE (INTEGER 0 TO 10000 = 0 TO 100 )      2016_03_0
+
+
+
+
+ACA Object FFFSSSSS
+ACA ImFunc TTTTTTTT 
+
+
+ACA Object is defined based on the AOACFID0-7 msids. It is composed of the first letters of the values of these msids (the values can be either FID or STAR). For example, if AOACFID0, AOACFID2, ..., AOACFID7 values are FID, FID, FID, STAR, STAR, STAR, STAR, STAR, then ACA Object is FFFSSSSS.
+
+ACA ImFunc is build in a similar manner from the AOACFCT0-7 msids. Here the value of each of these 8 msids can be one of 'NONE', 'SRCH', 'TRAK', 'RACQ' and again ACA ImFunc is built out of the first letters of the values of these 8 msids. For example, if all 8 AOACFCT msids are 'TRAK' then ACA ImFunc will be TTTTTTTT.
+
+Let me know if this is clear. The details of the current perl implementation are in /data/mta4/www/Snapshot/comps.pm subroutine do_comps.
+
+
+
+Note from Dave about ASVT input: Email from Dave (Jan 17, 2019)
+------------------------------------------------------------------
+
+That’s a good URL – the problem is you have to find a period where there is data. There 
+is none for those 10 seconds you queried.
+
+In general ASVT is not running 24 hours a day like the spacecraft is – so you’re not going 
+to have 24-hour continuous data for ASVT
+
+How to find days on which there is ASVT data – use the COUNT stat query:
+
+ https://telemetry.cfa.harvard.edu/maude/mrest/ASVT/STAT_1DAY_COUNT_CCSDSVCD.csv?ts=2018
+
+This will tell you, since 2018 (this is an open-ended query, since I did not specify an end time) 
+– which days have ASVT data (specifically, the number of VCDUs for that day – max is about 337171).
+
+Doesn’t tell you when within the day those VCDUs fall.  If a day is not listed, there is 
+no ASVT data for that day.
+
+Suppose I then wanted to find out where within the day there was data for a particular day, 
+say Jan 3rd of last year. This is one of the lines of output from the query listed above 
+(the STAT_1DAY_COUNT query)
+
+        2018-01-03 00:00:00.000,47147
+
+I know there are 47147 VCDUs on that day but I don’t know when. So I could use the 5-minute 
+stat query just for that day
+
+https://telemetry.cfa.harvard.edu/maude/mrest/ASVT/STAT_5MIN_COUNT_CCSDSVCD.csv?ts=2018003&tp=2018004
+
+That query shows me that there is ASVT data roughly between 1205 and 1530 (ish)

@@ -1,0 +1,14 @@
+mta@boba-v-105: ps aux|grep mta|grep daemon
+mta       2229  0.0  0.0   4348   160 ?        S     2020   0:49 /data/mta4/Script/SOH/soh_snap_daemonize
+mta       2234  0.0  0.0   4344   156 ?        S     2020   0:49 /data/mta4/Script/SOH/soh_main_daemonize
+mta       2246  0.0  0.0   4344   156 ?        S     2020   0:25 /data/mta4/Script/SOH/soh_ccdm_daemonize
+mta       2266  0.0  0.0   4348   160 ?        S     2020   0:30 /data/mta4/Script/SOH/soh_eps_daemonize
+mta       2286  0.0  0.0   4344   156 ?        S     2020   0:31 /data/mta4/Script/SOH/soh_load_daemonize
+mta       2303  0.0  0.0   4344   160 ?        S     2020   0:31 /data/mta4/Script/SOH/soh_mech_daemonize
+mta       2316  0.0  0.0   4344   160 ?        S     2020   0:24 /data/mta4/Script/SOH/soh_pcad_daemonize
+mta       2319  0.0  0.0   4344   156 ?        S     2020   0:16 /data/mta4/Script/SOH/soh_prop_daemonize
+mta       2329  0.0  0.0   4344   156 ?        S     2020   0:28 /data/mta4/Script/SOH/soh_sc_config_daemonize
+mta       2336  0.0  0.0   4344   156 ?        S     2020   0:25 /data/mta4/Script/SOH/soh_smode_daemonize
+mta       2342  0.0  0.0   4344   160 ?        S     2020   0:29 /data/mta4/Script/SOH/soh_thermal_daemonize
+mta      23269  0.0  0.0   4344   300 ?        S    Apr14   0:01 /data/mta/Script/Space_Weather/EPHEM/Scripts/interpolate_daemonize
+

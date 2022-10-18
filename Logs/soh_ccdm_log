@@ -1,0 +1,2 @@
+mta       8829  8824 22 10:50 ?        00:00:09 /data/mta4/Script/Python3.8/envs/ska3-shiny/bin/python /data/mta4/Script/SOH/copy_data_from_occ.py ccdm
+mta       8829  8824 32 10:50 ?        00:00:32 /data/mta4/Script/Python3.8/envs/ska3-shiny/bin/python /data/mta4/Script/SOH/copy_data_from_occ.py ccdm

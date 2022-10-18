@@ -1,0 +1,91 @@
+29,30c29,30
+< outdir        = '/data/mta4/www/CSH/'
+< house_keeping = '/data/mta/Script/SOH/house_keeping/'
+---
+> outdir        = '/data/mta4/www/CSH_ASVT/'
+> house_keeping = '/data/mta/Script/SOH_ASVT/house_keeping/'
+37d36
+< 
+72c71
+< #    write_run_file('0')
+---
+>     #write_run_file('0')
+105c104
+<         out   = maude.get_msids('AOPCADMD', start, stop)
+---
+>         out   = maude.get_msids('AOPCADMD', start, stop, channel='ASVT')
+172,173c171,186
+<             start = stop - 43200
+<             chk = extract_blob_data(msid_list, mdict, start, stop)
+---
+>             mk = 1
+>             start = stop - mk  * 86400
+>             while chk == 'stop':
+>                 chk = extract_blob_data(msid_list, mdict, start, stop)
+>                 if chk == 'stop':
+>                     mk += 1
+>                     if mk > 5:
+>                         send_warning_email()
+>                         write_run_file('0')
+>                         exit(1)
+>                     
+>                         break
+> 
+>                     start = stop - mk * 86400
+>                 else:
+>                     break
+300c313
+<         out   = maude.get_msids('AOPCADMD', start, stop)
+---
+>         out   = maude.get_msids('AOPCADMD', start, stop, channel='ASVT')
+336c349
+<             mdata = maude.get_msids(msid_short, start, stop)
+---
+>             mdata = maude.get_msids(msid_short, start, stop, channel='ASVT')
+348a362,374
+>                 try:
+>                     fval = float(val)
+>                     if(fval == 999) or (fval == 0):
+>                         out = list(mdata['data'][nk]['values'])
+>                         for m in range(0, len(out)):
+>                             k = len(out) - m -1
+>                             val = float(out[k])
+>                             if (val != 999) and (val != 0):
+>                                 val = str(out[k])
+>                                 break
+>                     val = str(val)
+>                 except:
+>                     continue
+363c389
+<             val = '"' + val + '"'
+---
+>             val = '"' + str(val) + '"'
+441c467
+<     mdata = maude.get_msids(msid_short, start, stop)
+---
+>     mdata = maude.get_msids(msid_short, start, stop, channel='ASVT')
+516a543,557
+> #-------------------------------------------------------------------------------
+> #-------------------------------------------------------------------------------
+> #-------------------------------------------------------------------------------
+> 
+> #def send_warning_email():
+> #    text = 'ASVT data seems not updated more than 10 days, check with: \n'
+> #    text = text + 'https://telemetry.cfa.harvard.edu/maude/mrest/ASVT/STAT_5MIN_COUNT_CCSDSVCD.csv?ts=<yyyy><ddd>&tp=<yyyy><ddd>\n'
+> #    text = text + 'on a browser.\n'
+> #    
+> #    fo   = open(zspace, 'w')
+> #    fo.write(text)
+> #    
+> #    cmd  = 'cat ' + zspace + '|mailx -s "CSH ASVT data is not updating" tisobe@cfa.harvard.edu'
+> #    os.system(cmd)
+> 
+538,539d578
+<     running = read_file_data(ifile)
+< 
+540a580
+>         running = read_file_data(ifile)
+553a594
+> 
+554a596
+> 

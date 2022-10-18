@@ -1,0 +1,8 @@
+#!/bin/sh
+if ps -ef | grep -v grep | grep "/data/mta/Script/SOH_ASVT/copy_data_from_occ_part.py main" ; then
+    exit 0
+else
+    /data/mta/Script/SOH_ASVT/copy_data_from_occ_part.py main
+    exit 0
+fi
+
