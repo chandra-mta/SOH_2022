@@ -1,3 +1,6 @@
+This repository for daemonized shell scripts using python maude MSID fetching for the Chandra State of Health pages has been deprecated in favor of using the CSH Github repository.
+Consult the CSH repo for current code.
+
 
 #########################################################
 copy blob data from occ side to sot side
